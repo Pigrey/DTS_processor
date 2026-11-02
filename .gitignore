@@ -3,3 +3,7 @@ dist/
 *.log
 desktop/web/
 release/
+windows/bin/
+windows/obj/
+windows/Tests/bin/
+windows/Tests/obj/
