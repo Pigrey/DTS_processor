@@ -1,0 +1,7 @@
+export const statuses = ['进行中','已完成','挂起'];
+export const baseColumns = [{key:'title',name:'事项',type:'text'},{key:'created',name:'创建时间',type:'date'},{key:'due',name:'截止时间',type:'date'},{key:'completed',name:'实际完成时间',type:'date'},{key:'status',name:'状态',type:'status'},{key:'people',name:'参与人',type:'people'},{key:'progress',name:'当前进展',type:'text'}];
+export function newTask(){return {id:crypto.randomUUID(),title:'',created:new Date().toISOString(),due:'',completed:'',status:'进行中',people:['王淞晖'],progress:'',custom:{}};}
+export function setStatus(task,status){if(!statuses.includes(status))return; if(task.status!==status){task.completed=status==='已完成'?new Date().toISOString():'';task.status=status;}}
+export function dateValue(value){if(!value)return ''; if(value.length===10)return value; const d=new Date(value);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+export function valueOf(task,key){return key in task?task[key]:task.custom?.[key]??'';}
+export function matches(task,filters,columns,query=''){if(query&&!columns.some(c=>String(valueOf(task,c.key)).toLowerCase().includes(query.toLowerCase())))return false;return columns.every(c=>{const f=filters[c.key];if(!f)return true;const v=valueOf(task,c.key);if(c.type==='date'){const d=dateValue(v);return (!f.from||d&&d>=f.from)&&(!f.to||d&&d<=f.to);}if(c.type==='people')return !f||v.includes(f);if(c.type==='status')return !f||v===f;return String(v).toLowerCase().includes(String(f).toLowerCase());});}
