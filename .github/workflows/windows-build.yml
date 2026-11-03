@@ -1,0 +1,30 @@
+name: Windows desktop validation
+on:
+  push:
+    branches: [main]
+    paths: ['windows/**', '.github/workflows/windows-build.yml']
+  pull_request:
+    paths: ['windows/**', '.github/workflows/windows-build.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  desktop:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Run file storage and data tests
+        run: dotnet run --project windows/Tests/CoreTests.csproj -c Release
+      - name: Publish native desktop executable
+        run: dotnet publish windows/Shixiang.csproj -c Release -r win-x64 -o release/native
+      - name: Verify native workspace starts and closes
+        shell: pwsh
+        run: ./windows/Tests/StartupSmoke.ps1 -ExePath ./release/native/Shixiang-Tracker-windows-x64.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Shixiang-Windows-x64
+          path: release/native/Shixiang-Tracker-windows-x64.exe

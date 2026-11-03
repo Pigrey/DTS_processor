@@ -10,6 +10,16 @@
 - 未进行代码签名，Windows 可能显示未知发布者提示。
 - 这是原生 Windows 程序；Linux 环境完成交叉编译和数据逻辑测试，原生窗口仍需在 Windows 上进行实际运行验收。
 
+## 2.1.2 启动修复
+
+修复 2.1.1 添加图标后因修改已密封的 WPF Window 样式而无法启动的问题。图标直接设置到主窗口和详情等子窗口，不再修改共享样式。此错误发生在读取数据文件之前，原有事项数据不需要重置。
+
+Windows 原生启动检查可通过 PowerShell 7 运行：
+```powershell
+pwsh ./windows/Tests/StartupSmoke.ps1 -ExePath ./release/native/Shixiang-Tracker-windows-x64.exe
+```
+检查使用独立临时数据目录，验证实际主窗口出现并正常关闭。GitHub Actions 的 Windows 校验工作流包含此检查。
+
 ## 2.1.1 界面更新
 
 - 新增紫色记事勾选图标，适配 EXE、任务栏、窗口和侧栏，提供 16–256 像素多尺寸 ICO。
