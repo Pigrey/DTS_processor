@@ -1,1 +1,1 @@
-6cd8882665b2fe6f232670e1b82dad027e319a15d3b346d90fd51f8cc37e5cb6  Shixiang-Tracker-windows-x64.exe
+1d1e5595563e0f01e18ae4e0b10ea54f76c6cd37bc45ca8a9aa989bd60a5c72e  Shixiang-Tracker-windows-x64.exe

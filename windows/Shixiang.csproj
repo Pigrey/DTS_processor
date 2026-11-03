@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF><EnableWindowsTargeting>true</EnableWindowsTargeting>
-    <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><AssemblyName>Shixiang-Tracker-windows-x64</AssemblyName><Version>2.1.0</Version>
+    <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><AssemblyName>Shixiang-Tracker-windows-x64</AssemblyName><Version>2.1.1</Version>
     <PublishSingleFile>true</PublishSingleFile><SelfContained>true</SelfContained><EnableCompressionInSingleFile>true</EnableCompressionInSingleFile><IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <ApplicationIcon>Assets/App.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
-  <ItemGroup><Compile Remove="Tests/**"/><PackageReference Include="Markdig" Version="0.41.3" /></ItemGroup>
+  <ItemGroup><Resource Include="Assets/App.ico"/><Resource Include="Assets/App.png"/><Compile Remove="Tests/**"/><PackageReference Include="Markdig" Version="0.41.3" /></ItemGroup>
 </Project>
