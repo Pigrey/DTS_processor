@@ -7,8 +7,8 @@ public static class Program
     [STAThread] public static void Main(){
         var app=new Application();
         app.DispatcherUnhandledException+=(s,e)=>{MessageBox.Show(e.Exception.Message,"事项簿 · 操作失败",MessageBoxButton.OK,MessageBoxImage.Error);e.Handled=true;};
-        app.Resources[typeof(Button)]=new Style(typeof(Button)){Setters={new Setter(Control.PaddingProperty,new Thickness(14,8,14,8)),new Setter(FrameworkElement.MarginProperty,new Thickness(4)),new Setter(Control.BackgroundProperty,Brushes.White),new Setter(Control.BorderBrushProperty,new SolidColorBrush(Color.FromRgb(218,226,238)))}};
         try{
+            app.Resources.MergedDictionaries.Add(new ResourceDictionary{Source=new Uri("Theme.xaml",UriKind.Relative)});
             string directory=Environment.GetEnvironmentVariable("TASK_TRACKER_DATA_DIR")??Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"事项簿");
             using var store=new FileStore(directory);
             app.Run(new MainWindow(store));
